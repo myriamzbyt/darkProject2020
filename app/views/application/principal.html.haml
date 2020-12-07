@@ -1,0 +1,28 @@
+= render partial: "entete"
+
+//onglet à saisir
+%ul
+  =link_to "Saisie Famille", principal_application_path
+  =link_to "Resume", resume_application_path
+
+.card
+  //Champs à saisir destiner à être saisie dans la table Famille et Membre
+  = form_for 'aa',
+    url: { action: :create_family},
+    html: { class: 'form' } do |f|
+    %h5 Nom
+    = f.text_field :Nom, placeholder: 'Votre Nom' , required: true
+    %h5 Prenom
+    = f.text_field :Prenom, placeholder: 'Votre Prenom', required: true
+    %h5 Date de Naissance
+    =f.datetime_field :naissance
+    %h5 Père
+    =f.text_field :Pere, placeholder: 'Nom et prenom du père', required: true
+    %h5 Mère
+    =f.text_field :Mere, placeholder: 'Nom et prenom de la mère', required: true
+
+
+    = f.submit 'enregistrer'
+
+
+
