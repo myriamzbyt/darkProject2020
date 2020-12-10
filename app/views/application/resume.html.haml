@@ -1,13 +1,16 @@
-
+= render partial: "entete"
 //partie resume des lien de famille
-%ul
-  =link_to "Saisie Famille", principal_application_path
-  =link_to "Resume", resume_application_path
 
-%h4
-  resume de la famille
-.card
-  -if @info_famille.nil?
-    %h2 Aucune famille dans la base de donnée
-  -else
-    -@info_famille
+.conteneur
+  .onglet.element_onglet_non_selectionne
+    =link_to "Saisie Famille", principal_application_path
+  .onglet.element_onglet_selectionne
+    =link_to "Resume", resume_application_path
+
+
+.conteneur
+  .card.card-resume
+    -if @info_famille.nil?
+      %h2 Aucune famille dans la base de donnée
+    -else
+      -@info_famille
