@@ -1,0 +1,57 @@
+= render partial: "entete"
+
+
+.conteneur
+  .onglet.element_onglet_selectionne
+    =link_to "Saisie Famille", principal_application_path
+  .onglet.element_onglet_non_selectionne
+    =link_to "Resume", resume_application_path
+
+
+.conteneur
+  .card.card-parent
+    = form_for 'aa',
+        url: { action: :create_family},
+        html: { class: 'form' } do |f|
+      %h3.label Identité du père
+      = f.label :nom_pere do
+        Nom
+        = f.text_field :nom_pere, placeholder: 'Votre Nom' , required: true
+      = f.label :prenom_pere do
+        Prenom
+        = f.text_field :prenom_pere, placeholder: 'Votre Prenom', required: true
+        %br
+      =f.label :naissance_pere do
+        Date de naissance
+        =f.datetime_field :naissance_pere
+      %h3.label Identité de la mère
+      =f.label :nom_mere do
+        Nom
+        =f.text_field :nom_mere, placeholder: 'Nom et prenom du père', required: true
+      =f.label :prenom_mere do
+        Prenom
+        =f.text_field :prenom_mere, placeholder: 'Nom et prenom de la mère', required: true
+        %br
+      =f.label :naissance_mere do
+        Date de naissance
+        =f.datetime_field :naissance_mere
+
+        .button
+          =f.submit 'enregistrer', class: 'button primary send'
+  .card.card-enfant
+    = form_for 'aa',
+        url: { action: :create_family},
+        html: { class: 'form' } do |f|
+      %h3.label Identité des enfants
+      = f.label :Prenom do
+        Nom
+        = f.text_field :Nom, placeholder: 'Votre Nom' , required: true
+      = f.label :Prenom do
+        Prenom
+        = f.text_field :Prenom, placeholder: 'Votre Prenom', required: true
+      %br
+        =f.label :naissance do
+          Date de naissance
+        =f.datetime_field :naissance
+        .button
+          =f.submit 'enregistrer', class: 'button primary send'
