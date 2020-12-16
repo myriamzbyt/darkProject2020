@@ -1,0 +1,271 @@
+import scrollToComponent from 'react-scroll-to-component';
+import { debounce } from '@utils';
+import {
+  createTypeDeChampOperation,
+  destroyTypeDeChampOperation,
+  moveTypeDeChampOperation,
+  updateTypeDeChampOperation
+} from './operations';
+
+export default function typeDeChampsReducer(state, { type, params, done }) {
+  switch (type) {
+    case 'addNewTypeDeChamp':
+      return addNewTypeDeChamp(state, state.typeDeChamps, done);
+    case 'addNewRepetitionTypeDeChamp':
+      return addNewRepetitionTypeDeChamp(
+        state,
+        state.typeDeChamps,
+        params.typeDeChamp,
+        done
+      );
+
+    case 'addNewConditionTypeDeChamp':
+      return addNewConditionTypeDeChamp(
+        state,
+        state.typeDeChamps,
+        params.typeDeChamp,
+        done
+      );
+    case 'updateTypeDeChamp':
+      return updateTypeDeChamp(state, state.typeDeChamps, params, done);
+    case 'removeTypeDeChamp':
+      return removeTypeDeChamp(state, state.typeDeChamps, params);
+    case 'moveTypeDeChampUp':
+      return moveTypeDeChampUp(state, state.typeDeChamps, params);
+    case 'moveTypeDeChampDown':
+      return moveTypeDeChampDown(state, state.typeDeChamps, params);
+    case 'onSortTypeDeChamps':
+      return onSortTypeDeChamps(state, state.typeDeChamps, params);
+    case 'refresh':
+      return { ...state, typeDeChamps: [...state.typeDeChamps] };
+    default:
+      throw new Error(`Unknown action "${type}"`);
+  }
+}
+
+function addTypeDeChamp(state, typeDeChamps, insertAfter, done) {
+  const typeDeChamp = {
+    ...state.defaultTypeDeChampAttributes
+  };
+
+  createTypeDeChampOperation(typeDeChamp, state.queue)
+    .then(async () => {
+      if (insertAfter) {
+        // Move the champ to the correct position server-side
+        await moveTypeDeChampOperation(
+          typeDeChamp,
+          insertAfter.index,
+          state.queue
+        );
+      }
+      state.flash.success();
+      done();
+      if (insertAfter) {
+        scrollToComponent(insertAfter.target.nextElementSibling, {
+          duration: 300
+        });
+      }
+    })
+    .catch((message) => state.flash.error(message));
+
+  let newTypeDeChamps = [...typeDeChamps, typeDeChamp];
+  if (insertAfter) {
+    // Move the champ to the correct position client-side
+    newTypeDeChamps = arrayMove(
+      newTypeDeChamps,
+      typeDeChamps.length,
+      insertAfter.index
+    );
+  }
+
+  return {
+    ...state,
+    typeDeChamps: newTypeDeChamps
+  };
+}
+
+function addNewTypeDeChamp(state, typeDeChamps, done) {
+  return addTypeDeChamp(state, typeDeChamps, findItemToInsertAfter(), done);
+}
+
+function addNewRepetitionTypeDeChamp(state, typeDeChamps, typeDeChamp, done) {
+  return addTypeDeChamp(
+    {
+      ...state,
+      defaultTypeDeChampAttributes: {
+        ...state.defaultTypeDeChampAttributes,
+        parent_id: typeDeChamp.id
+      }
+    },
+    typeDeChamps,
+    null,
+    done
+  );
+}
+
+function addNewConditionTypeDeChamp(state, typeDeChamps, typeDeChamp, done) {
+  return addTypeDeChamp(
+    {
+      ...state,
+      defaultTypeDeChampAttributes: {
+        ...state.defaultTypeDeChampAttributes,
+        parent_id: typeDeChamp.id
+      }
+    },
+    typeDeChamps,
+    null,
+    done
+  );
+}
+
+function updateTypeDeChamp(
+  state,
+  typeDeChamps,
+  { typeDeChamp, field, value },
+  done
+) {
+  if (field == 'type_champ' && !typeDeChamp.drop_down_list_value) {
+    switch (value) {
+      case 'linked_drop_down_list':
+        typeDeChamp.drop_down_list_value =
+          '--Fromage--\nbleu de sassenage\npicodon\n--Dessert--\néclair\ntarte aux pommes\n';
+        break;
+      case 'drop_down_list':
+      case 'multiple_drop_down_list':
+        typeDeChamp.drop_down_list_value = '--Premier élément du menu--\n';
+    }
+  }
+
+  typeDeChamp[field] = value;
+  if (field == 'type_champ' && typeDeChamp.type_champ === 'text_limitation') {
+    typeDeChamp.limitation = 100;
+  }
+  if (
+    field == 'type_champ' &&
+    typeDeChamp.type_champ === 'textarea_limitation'
+  ) {
+    typeDeChamp.limitation = 1000;
+  }
+  if (field == 'type_champ' && typeDeChamp.type_champ === 'repetition') {
+    typeDeChamp.nombre_ligne = '--';
+  }
+  getUpdateHandler(typeDeChamp, state)(done);
+
+  if (field == 'type_champ' && typeDeChamp.type_champ === 'apis') {
+    typeDeChamp.api_name = state.defaultTypeDeChampAttributes.api_name;
+  }
+  return {
+    ...state,
+    typeDeChamps: [...typeDeChamps]
+  };
+}
+
+function removeTypeDeChamp(state, typeDeChamps, { typeDeChamp }) {
+  destroyTypeDeChampOperation(typeDeChamp, state.queue)
+    .then(() => state.flash.success())
+    .catch((message) => state.flash.error(message));
+
+  return {
+    ...state,
+    typeDeChamps: arrayRemove(typeDeChamps, typeDeChamp)
+  };
+}
+
+function moveTypeDeChampUp(state, typeDeChamps, { typeDeChamp }) {
+  const oldIndex = typeDeChamps.indexOf(typeDeChamp);
+  const newIndex = oldIndex - 1;
+
+  moveTypeDeChampOperation(typeDeChamp, newIndex, state.queue)
+    .then(() => state.flash.success())
+    .catch((message) => state.flash.error(message));
+
+  return {
+    ...state,
+    typeDeChamps: arrayMove(typeDeChamps, oldIndex, newIndex)
+  };
+}
+
+function moveTypeDeChampDown(state, typeDeChamps, { typeDeChamp }) {
+  const oldIndex = typeDeChamps.indexOf(typeDeChamp);
+  const newIndex = oldIndex + 1;
+
+  moveTypeDeChampOperation(typeDeChamp, newIndex, state.queue)
+    .then(() => state.flash.success())
+    .catch((message) => state.flash.error(message));
+
+  return {
+    ...state,
+    typeDeChamps: arrayMove(typeDeChamps, oldIndex, newIndex)
+  };
+}
+
+function onSortTypeDeChamps(state, typeDeChamps, { oldIndex, newIndex }) {
+  moveTypeDeChampOperation(typeDeChamps[oldIndex], newIndex, state.queue)
+    .then(() => state.flash.success())
+    .catch((message) => state.flash.error(message));
+
+  return {
+    ...state,
+    typeDeChamps: arrayMove(typeDeChamps, oldIndex, newIndex)
+  };
+}
+
+function arrayRemove(array, item) {
+  array = Array.from(array);
+  array.splice(array.indexOf(item), 1);
+  return array;
+}
+
+function arrayMove(array, from, to) {
+  array = Array.from(array);
+  array.splice(to < 0 ? array.length + to : to, 0, array.splice(from, 1)[0]);
+  return array;
+}
+
+const updateHandlers = new WeakMap();
+function getUpdateHandler(typeDeChamp, { queue, flash }) {
+  let handler = updateHandlers.get(typeDeChamp);
+  if (!handler) {
+    handler = debounce(
+      (done) =>
+        updateTypeDeChampOperation(typeDeChamp, queue)
+          .then(() => {
+            flash.success();
+            done();
+          })
+          .catch((message) => flash.error(message)),
+      200
+    );
+    updateHandlers.set(typeDeChamp, handler);
+  }
+  return handler;
+}
+
+function findItemToInsertAfter() {
+  const target = getLastVisibleTypeDeChamp();
+
+  if (target) {
+    return {
+      target,
+      index: parseInt(target.dataset.index) + 1
+    };
+  } else {
+    return null;
+  }
+}
+
+function getLastVisibleTypeDeChamp() {
+  const typeDeChamps = document.querySelectorAll('[data-in-view]');
+  const target = typeDeChamps[typeDeChamps.length - 1];
+
+  if (target) {
+    const parentTarget = target.closest('[data-repetition]');
+    const parentTargetCondition = target.closest('[data-condition]');
+    if (parentTarget) {
+      return parentTarget;
+    } else if (parentTargetCondition) {
+      return parentTargetCondition;
+    }
+    return target;
+  }
+}

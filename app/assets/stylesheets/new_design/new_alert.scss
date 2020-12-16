@@ -1,0 +1,40 @@
+@import "colors";
+@import "constants";
+
+.alert {
+  padding: 15px;
+  border: 1px solid transparent;
+}
+
+.alert-danger {
+  background-color: $medium-red;
+  color: #FFFFFF;
+
+  a {
+    color: #FFFFFF;
+    text-decoration: underline;
+  }
+}
+
+.alert-success {
+  background-color: $lighter-green;
+  border-color: $light-green;
+  color: $dark-green;
+}
+
+.alert-spinner {
+  background-color:#0B6BA8;
+  border-color: #0B6BA8;
+  color: #FFFFFF;
+}
+
+.alert-fixed {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%);
+  max-width: 700px;
+  top: 10px;
+  border-radius: 10px;
+  // Ensure fixed flash messages are above `position: absolute` elements (like maps)
+  z-index: $alert-z-index;
+}

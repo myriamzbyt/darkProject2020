@@ -1,0 +1,454 @@
+@import "constants";
+@import "colors";
+@import "mixins";
+@import "placeholders";
+
+.landing {
+  background-color: #FFFFFF;
+}
+
+.landing-panel {
+  @include vertical-padding(60px);
+}
+
+$landing-breakpoint: 1040px;
+
+.hero-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  @media (max-width: $landing-breakpoint) {
+    justify-content: center;
+  }
+}
+
+.hero-text {
+  max-width: 500px;
+
+  @media (max-width: $landing-breakpoint) {
+    margin: auto;
+  }
+}
+
+.hero-tagline {
+  font-size: 40px;
+  margin-bottom: 0px;
+}
+
+.hero-tagline-em {
+  color: $blue;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.hero-illustration {
+  max-width: 500px;
+
+  img {
+    max-width: 100%;
+  }
+
+  @media (max-width: 1030px) {
+    margin: auto;
+  }
+}
+
+.landing-panel-title {
+  width: 100%;
+  font-size: 30px;
+  font-weight: normal;
+  text-align: center;
+  margin-bottom: 40px;
+  margin-top: 0;
+}
+
+.features-panel {
+  background-color: $blue;
+}
+
+.features-panel-title {
+  color: #FFFFFF;
+}
+
+.features {
+  @extend %horizontal-list;
+  width: 100%;
+  align-items: baseline;
+  justify-content: space-between;
+
+  @media (max-width: $landing-breakpoint) {
+    justify-content: center;
+  }
+}
+
+.feature {
+  @extend %horizontal-list-item;
+  width: 260px;
+
+  @media (max-width: $landing-breakpoint) {
+    margin: 15px 20px;
+  }
+}
+
+.feature-text {
+  color: #FFFFFF;
+  font-size: 20px;
+  text-align: center;
+}
+
+.feature-text-em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+.feature-image {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 24px;
+}
+
+.quotes {
+  @extend %horizontal-list;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 30px;
+
+  @media (max-width: $landing-breakpoint) {
+    justify-content: center;
+  }
+}
+
+.quote {
+  @extend %horizontal-list-item;
+  max-width: 500px;
+  width: 100%;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 16px 0 rgba(153, 153, 153, 0.2);
+  padding: 24px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  @media (max-width: $landing-breakpoint) {
+    margin: 15px 0;
+  }
+}
+
+.quote-quotation-mark {
+  margin-top: 12px;
+}
+
+.quote-content {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.quote-content-wrapper {
+  margin-left: 20px;
+  width: 100%;
+}
+
+.quote-author {
+  font-size: 14px;
+}
+
+.quote-author-name {
+  font-weight: bold;
+}
+
+.usagers-panel,
+.numbers-panel,
+.cta-panel-2 {
+  background-color: $light-grey;
+}
+
+.more-info {
+  background-color: #FFFFFF;
+}
+
+.numbers {
+  @extend %horizontal-list;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.number {
+  @extend %horizontal-list-item;
+  width: 320px;
+  text-align: center;
+
+  @media (max-width: $landing-breakpoint) {
+    margin-bottom: 15px;
+  }
+}
+
+.number-value {
+  color: $blue;
+  font-weight: bold;
+  font-size: 36px;
+}
+
+.number-label {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+$users-breakpoint: 950px;
+
+.users {
+  @extend %horizontal-list;
+  justify-content: space-between;
+  width: 100%;
+
+  &:first-of-type {
+    margin-bottom: 45px;
+  }
+
+  @media (max-width: $users-breakpoint) {
+    justify-content: space-around;
+
+    &:first-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.user {
+  @extend %horizontal-list-item;
+  width: 170px;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  @media (max-width: $users-breakpoint) {
+    margin: 0 15px 15px;
+  }
+}
+
+.user-image {
+  width: 170px;
+}
+
+.role-image {
+  height: 180px;
+}
+
+.cta-role-title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 13px;
+}
+
+.cta-role-explanation {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.cta-panel {
+  background-color: $blue;
+  color: #FFFFFF;
+}
+
+.role-panel-wrapper,
+.cta-panel-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.role-administrations-panel {
+  flex-direction: row-reverse;
+
+  @media (max-width: $users-breakpoint) {
+    flex-direction: row;
+  }
+}
+
+.role-panel-70,
+.role-panel-30 {
+  display: inline-block;
+}
+
+.role-panel-70 {
+  width: 70%;
+
+  @media (max-width: $users-breakpoint) {
+    width: 100%;
+  }
+}
+
+.role-panel-30 {
+  width: 30%;
+
+  @media (max-width: $users-breakpoint) {
+    width: 100%;
+  }
+}
+
+.cta-panel-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 13px;
+}
+
+.cta-panel-explanation {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.role-panel-title {
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 36px;
+  margin-bottom: 15px;
+}
+
+.role-panel-explanation {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.role-administrations-image {
+  text-align: right;
+
+  @media (max-width: $users-breakpoint) {
+    text-align: center;
+    margin-bottom: 45px;
+  }
+}
+
+.role-more-info-image {
+  text-align: left;
+
+  @media (max-width: $users-breakpoint) {
+    text-align: center;
+    margin-bottom: 45px;
+  }
+}
+
+.role-usagers-image {
+  @media (max-width: $users-breakpoint) {
+    text-align: center;
+    margin-bottom: 45px;
+  }
+}
+
+$cta-panel-button-border-size: 2px;
+
+@mixin cta-panel-button {
+  @include horizontal-padding(40px);
+  @include vertical-padding(15px);
+  display: block;
+  border-radius: 100px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.cta-panel-button-white {
+  @include cta-panel-button;
+  border: $cta-panel-button-border-size solid #FFFFFF;
+  color: #FFFFFF;
+
+  &:hover {
+    color: #FFFFFF;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  &:focus {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+
+  &:active,
+  &:focus {
+    outline: 3px solid #FFFFFF;
+  }
+}
+
+.cta-panel-button-blue {
+  @include cta-panel-button;
+  border: $cta-panel-button-border-size solid $light-blue;
+  color: $light-blue;
+
+  &:hover {
+    color: #FFFFFF;
+    background-color: $light-blue;
+    text-decoration: none;
+
+    &:focus {
+      color: #FFFFFF;
+    }
+  }
+
+  &:focus {
+    color: $light-blue;
+    text-decoration: none;
+  }
+}
+
+@mixin role-button {
+  @include horizontal-padding(30px);
+  display: inline-block;
+  border-radius: 100px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 20px;
+  line-height: 50px;
+}
+
+.role-panel-button-primary {
+  @include role-button;
+  background-color: $blue;
+  color: #FFFFFF;
+
+  &:hover {
+    color: #FFFFFF;
+    text-decoration: none;
+    background-color: $light-blue;
+  }
+
+  &:focus {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+}
+
+.role-panel-button-secondary {
+  @include role-button;
+  border: $cta-panel-button-border-size solid $blue;
+  line-height: 50px - 2 * $cta-panel-button-border-size;
+  color: $blue;
+  margin-left: 10px;
+
+  @media (max-width: $users-breakpoint) {
+    margin-left: 0px;
+  }
+
+  &:hover {
+    color: $light-blue;
+    border: $cta-panel-button-border-size solid $light-blue;
+    text-decoration: none;
+  }
+
+  &:focus {
+    color: $light-blue;
+    text-decoration: none;
+  }
+}
+
+.half {
+  width: 45%;
+  float: left;
+}
+
+.first-half {
+  margin-right: 10%;
+}

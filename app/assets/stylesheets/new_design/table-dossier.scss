@@ -1,0 +1,55 @@
+@import "colors";
+@import "constants";
+@import "mixins";
+
+.table-dossier {
+  width: 100%;
+
+  tbody th {
+    padding-top: 30px;
+    padding-bottom: 20px;
+    border-top: 1px solid $border-grey;
+  }
+
+  tbody th:nth-child(1) {
+    width: 20%;
+  }
+
+  tbody th:nth-child(2) {
+    width: 30%;
+  }
+
+  tbody th:nth-child(3) {
+    width: 50%;
+  }
+
+  th:nth-child(1) {
+    text-align: left;
+  }
+
+  th:nth-child(2) {
+    text-align: center;
+  }
+
+  td:nth-child(1) {
+    text-align: left;
+  }
+
+  td:nth-child(2) {
+    text-align: center;
+  }
+
+  td:nth-child(3) {
+    padding-left: 10px;
+    text-align: center;
+  }
+
+  td {
+    @include vertical-padding($default-spacer);
+    vertical-align: middle;
+  }
+
+  th {
+    font-weight: bold;
+  }
+}

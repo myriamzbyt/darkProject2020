@@ -1,0 +1,47 @@
+.dossiers-headers.sub-header
+  .container
+    %h1.page-title Famille #{@famille.nom}
+
+.container
+  - if @parents.present?
+    %h1.tab-title Les parents
+    %table.table.dossiers-table.hoverable
+      %thead
+        %tr
+          %th Prénom du père
+          %th Date de naissance
+          %th Prénom de la mère
+          %th Date de naissance
+        %tbody
+          - @parents.each do |parent|
+            %tr
+              %td
+                = parent.prenom_pere
+              %td
+                = parent.annee_naissance_pere
+              %td
+                = parent.prenom_mere
+              %td
+                = parent.annee_naissance_mere
+
+    %br
+    %br
+    %br
+    %h1.tab-title Les enfants
+    %table.table.dossiers-table.hoverable
+      %thead
+        %tr
+          %th Prénom 
+          %th Date de naissance
+        %tbody
+          - @enfants.each do |enfant|
+            %tr
+              %td
+                = enfant.prenom
+              %td
+                = enfant.annee_naissance
+  - else
+    %br
+    %h1.tab-title Pas de données
+    %br
+      = image_tag 'yoda.png', alt: 'Yoda'

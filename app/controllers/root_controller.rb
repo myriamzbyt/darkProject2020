@@ -2,6 +2,9 @@ class RootController < ApplicationController
   include ApplicationHelper
 
   def index
-    redirect_to principal_application_path
+  end
+
+  def redirection_principal
+    redirect_to application_principal_path
   end
 end

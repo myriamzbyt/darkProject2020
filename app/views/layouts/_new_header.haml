@@ -1,0 +1,20 @@
+%header.new-header{ class: "new-header-with-border", role: 'banner' }
+  .header-inner-content
+
+    .flex.align-center.justify-center
+      = link_to application_principal_path, class: 'header-logo justify-center', title: "Test" do
+        .mr-20
+          = image_tag 'starwars.svg', alt: 'Star wars', width: '65'
+        .mr-40
+          %span.big.site-title>
+            = APPLICATION_NAME
+          %span.small.site-title>
+            = APPLICATION_SHORTNAME
+      
+      %ul.header-tabs
+        %li
+          = active_link_to application_principal_path, active: :inclusive, class: 'tab-link' do
+            Saisie d'une famille
+        %li
+          = active_link_to application_resume_path , active: :inclusive, class: 'tab-link' do
+            Liste des familles

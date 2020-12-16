@@ -1,0 +1,71 @@
+@import "colors";
+@import "constants";
+
+.card {
+  padding: ($default-spacer * 3) ($default-spacer * 2);
+  border: 1px solid $border-grey;
+  margin-bottom: $default-spacer * 2;
+  background: #FFFFFF;
+
+  .notice {
+    font-size: 16px;
+    color: #666666;
+    margin-top: -8px;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: $default-spacer * 2;
+  }
+
+  &.featured {
+    border-top: 8px solid $blue;
+
+    .card-title {
+      color: $blue;
+    }
+  }
+
+  &.warning {
+    border-top: 8px solid $orange;
+
+    .card-title {
+      color: $orange;
+    }
+  }
+
+  &.feedback {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: ($default-spacer * 2) ($default-spacer * 4);
+    font-size: small;
+    border: 1px dashed $border-grey;
+    background: $light-yellow;
+
+    .card-title {
+      margin-bottom: $default-spacer;
+    }
+
+    b {
+      font-weight: bold;
+    }
+  }
+
+  ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    padding-left: $default-padding;
+  }
+
+  ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+    padding-left: $default-padding;
+  }
+
+  p:not(:last-of-type) {
+    margin-bottom: $default-spacer;
+  }
+}

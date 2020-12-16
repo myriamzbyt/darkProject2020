@@ -1,0 +1,31 @@
+@import "colors";
+@import "constants";
+
+.badge {
+  padding: 0 5px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: 100px;
+  background-color: rgba(0, 0, 0, 0.08);
+  vertical-align: top;
+
+  &.baseline {
+    vertical-align: baseline;
+  }
+
+  &.warning {
+    background-color: $orange;
+    color: #FFFFFF;
+  }
+
+  &.procedure-synthese-badge {
+    color: $white;
+    background-color: $dark-grey;
+    margin-left: 3px;
+    padding-left: $default-spacer;
+    padding-right: $default-spacer;
+    vertical-align: baseline;
+  }
+}

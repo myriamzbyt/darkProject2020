@@ -1,0 +1,14 @@
+@import "colors";
+@import "constants";
+@import "mixins";
+
+.procedure-logo {
+  @include ie-compatible-background-image();
+
+  background-color: #FFFFFF;
+  background-position: 95% 50%;
+  border: 1px solid $border-grey;
+  height: 84px;
+  width: 84px;
+  margin-right: $default-padding;
+}

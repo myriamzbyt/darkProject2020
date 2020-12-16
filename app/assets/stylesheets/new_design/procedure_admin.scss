@@ -1,0 +1,38 @@
+
+.procedure-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.procedure-admin-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+
+  .button {
+    margin-right: 10px;
+  }
+}
+
+.procedure-admin-listing-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 16px;
+  padding-right: 16px;
+  max-width: 1072px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
+.container {
+  a {
+    cursor: pointer;
+  }
+}
+
+.procedure-admin-explanation {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 20px;
+}

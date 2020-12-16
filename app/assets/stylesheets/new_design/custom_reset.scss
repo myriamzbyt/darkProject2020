@@ -1,0 +1,23 @@
+@import "colors";
+@import "placeholders";
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+a {
+  @extend %outline;
+
+  text-decoration: none;
+}

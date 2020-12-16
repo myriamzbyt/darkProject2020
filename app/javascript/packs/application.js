@@ -1,17 +1,80 @@
-// This file is automatically compiled by Webpack, along with any other files
-// present in this directory. You're encouraged to place your actual application logic in
-// a relevant structure within app/javascript and only use these pack files to reference
-// that code so it'll be compiled.
+import '../shared/polyfills';
+import Rails from '@rails/ujs';
+import * as ActiveStorage from '@rails/activestorage';
+import 'trix';
+import '@rails/actiontext';
+import 'whatwg-fetch'; // window.fetch polyfill
+import ReactRailsUJS from 'react_ujs';
 
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
-require("channels")
+import '../shared/page-update-event';
+import '../shared/activestorage/ujs';
+import '../shared/remote-poller';
+import '../shared/rails-ujs-fix';
+import '../shared/safari-11-file-xhr-workaround';
+import '../shared/remote-input';
+import '../shared/franceconnect';
+import '../shared/toggle-target';
 
+import '../new_design/dropdown';
+import '../new_design/form-validation';
+import '../new_design/procedure-context';
+import '../new_design/procedure-form';
+import '../new_design/select2';
+import '../new_design/spinner';
+import '../new_design/support';
+import '../new_design/dossiers/auto-save';
+import '../new_design/dossiers/auto-upload';
 
-// Uncomment to copy all static images under ../images to the output folder and reference
-// them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
-// or the `imagePath` JavaScript helper below.
-//
-// const images = require.context('../images', true)
-// const imagePath = (name) => images(name, true)
+import '../new_design/champs/carte';
+import '../new_design/champs/linked-drop-down-list';
+import '../new_design/champs/repetition';
+import '../new_design/champs/periode';
+import { manage_sub_champ } from '../new_design/champs/Check_condition_champ';
+import { changeTypeAvisListe } from '../new_design/administrateur';
+import { changeNiveauValidationListe } from '../new_design/administrateur';
+import { toggleCondidentielExplanation } from '../new_design/avis';
+import { scrollMessagerie } from '../new_design/messagerie';
+import {
+  showMotivation,
+  showMotivationAvis,
+  motivationCancel,
+  showImportJustificatif
+} from '../new_design/state-button';
+import { replaceSemicolonByComma } from '../new_design/avis';
+import {
+  acceptEmailSuggestion,
+  discardEmailSuggestionBox
+} from '../new_design/user-sign_up';
+
+import { showSpinnerSyncro } from '../new_design/spinner';
+
+// This is the global application namespace where we expose helpers used from rails views
+const DS = {
+  fire: (eventName, data) => Rails.fire(document, eventName, data),
+  toggleCondidentielExplanation,
+  scrollMessagerie,
+  showMotivation,
+  showMotivationAvis,
+  motivationCancel,
+  showImportJustificatif,
+  replaceSemicolonByComma,
+  acceptEmailSuggestion,
+  discardEmailSuggestionBox,
+  manage_sub_champ,
+  changeTypeAvisListe,
+  showSpinnerSyncro,
+  changeNiveauValidationListe
+};
+
+// Start Rails helpers
+Rails.start();
+ActiveStorage.start();
+
+// Expose globals
+window.DS = window.DS || DS;
+
+// Now that Turbolinks is globally exposed,configure ReactRailsUJS
+// eslint-disable-next-line no-undef, react-hooks/rules-of-hooks
+ReactRailsUJS.useContext(require.context('loaders', true));
+// Remove previous event handlers and add new ones:
+ReactRailsUJS.detectEvents();

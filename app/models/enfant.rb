@@ -1,3 +1,3 @@
 class Enfant < ApplicationRecord
-  belongs_to :parents
+  belongs_to :parents, optional: true
 end

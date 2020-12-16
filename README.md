@@ -1,24 +1,158 @@
-# README
+# demarches-simplifiees.fr
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Contexte
 
-Things you may want to cover:
+[demarches-simplifiees.fr](https://www.demarches-simplifiees.fr) est un site web conçu afin de répondre au besoin urgent de l'État d'appliquer la directive sur le 100 % dématérialisation pour les démarches administratives.
 
-* Ruby version
+## Comment contribuer ?
 
-* System dependencies
+demarches-simplifiees.fr est un [logiciel libre](https://fr.wikipedia.org/wiki/Logiciel_libre) sous licence AGPL.
 
-* Configuration
+Vous souhaitez y apporter des changements ou des améliorations ? Lisez notre [guide de contribution](CONTRIBUTING.md).
 
-* Database creation
+## Installation pour le développement
 
-* Database initialization
+### Dépendances techniques
 
-* How to run the test suite
+#### Tous environnements
 
-* Services (job queues, cache servers, search engines, etc.)
+- postgresql
 
-* Deployment instructions
+#### Développement
 
-* ...
+- rbenv : voir https://github.com/rbenv/rbenv-installer#rbenv-installer--doctor-scripts
+- Yarn : voir https://yarnpkg.com/en/docs/install
+
+#### Tests
+
+- Chrome
+- chromedriver :
+  * Mac : `brew cask install chromedriver`
+  * Linux : voir https://sites.google.com/a/chromium.org/chromedriver/downloads
+
+### Création des rôles de la base de données
+
+Les informations nécessaire à l'initialisation de la base doivent être pré-configurées à la main grâce à la procédure suivante :
+
+    su - postgres
+    psql
+    > create user tps_development with password 'tps_development' superuser;
+    > create user tps_test with password 'tps_test' superuser;
+    > \q
+
+
+### Initialisation de l'environnement de développement
+
+Sous Ubuntu, certains packages doivent être installés au préalable :
+
+    sudo apt-get install libcurl3 libcurl3-gnutls libcurl4-openssl-dev libcurl4-gnutls-dev zlib1g-dev libgeos-dev
+
+Sous Mac, certains packages doivent être installés au préalable :
+
+    brew install geos
+
+Afin d'initialiser l'environnement de développement, exécutez la commande suivante :
+
+    bin/setup
+
+### Lancement de l'application
+
+On lance le serveur d'application ainsi :
+
+    bin/rails server
+
+L'application tourne alors à l'adresse `http://localhost:3000`, et utilise le mécanisme par défaut de rails pour les tâches asynchrones.
+C'est ce qu'on veut dans la plupart des cas. Une exception: ça ne joue pas les tâches cron.
+
+Pour être une peu plus proche du comportement de production, et jouer les tâches cron, on peut lancer la message queue
+dans un service dédié, et indiquer à rails d'utiliser delayed_job:
+
+    bin/rake jobs:work
+    RAILS_QUEUE_ADAPTER=delayed_job bin/rails server
+
+### Utilisateurs de test
+
+En local, un utilisateur de test est créé automatiquement, avec les identifiants `test@exemple.fr`/`this is a very complicated password !`. (voir [db/seeds.rb](https://github.com/betagouv/demarches-simplifiees.fr/blob/dev/db/seeds.rb))
+
+### Programmation des tâches récurrentes
+
+    rails jobs:schedule
+
+### Voir les emails envoyés en local
+
+Ouvrez la page [http://localhost:3000/letter_opener](http://localhost:3000/letter_opener).
+
+### Mise à jour de l'application
+
+Pour mettre à jour votre environnement de développement, installer les nouvelles dépendances et faire jouer les migrations, exécutez :
+
+    bin/update
+
+### Exécution des tests (RSpec)
+
+Les tests ont besoin de leur propre base de données et certains d'entre eux utilisent Selenium pour s'exécuter dans un navigateur. N'oubliez pas de créer la base de test et d'installer chrome et chromedriver pour exécuter tous les tests.
+
+Pour exécuter les tests de l'application, plusieurs possibilités :
+
+- Lancer tous les tests
+
+        bin/rake spec
+        bin/rspec
+
+- Lancer un test en particulier
+
+        bin/rake spec SPEC=file_path/file_name_spec.rb:line_number
+        bin/rspec file_path/file_name_spec.rb:line_number
+
+- Lancer tous les tests d'un fichier
+
+        bin/rake spec SPEC=file_path/file_name_spec.rb
+        bin/rspec file_path/file_name_spec.rb
+
+### Ajout de taches à exécuter au déploiement
+
+        rails generate after_party:task task_name
+
+### Linting
+
+Le projet utilise plusieurs linters pour vérifier la lisibilité et la qualité du code.
+
+- Faire tourner tous les linters : `bin/rake lint`
+- [AccessLint](http://accesslint.com/) tourne automatiquement sur les PRs
+
+### Régénérer les binstubs
+
+    bundle binstub railties --force
+    bin/rake rails:update:bin
+
+## Déploiement
+
+- Tout nouveau commit ajouté à la branche `dev` est automatiquement déployé [en intégration](https://dev.demarches-simplifiees.fr/)
+- Tout nouveau commit ajouté à la branche `master` est automatiquement déployé [en production](https://www.demarches-simplifiees.fr/)
+
+## Crypter/décrypter les propriétés sensibles
+    encrypt_property_for_yaml encrypt|decrypt <SECRET_KEY> <PROPERTY_VALUE_TO_ENCRYPT>
+
+## Tâches courantes
+
+### Tâches de gestion des comptes super-admin
+
+Des tâches de gestion des comptes super-admin sont prévues dans le namespace `superadmin`.
+Pour les lister : `bin/rake -D superadmin:`.
+
+### Tâches d’aide au support
+
+Des tâches d’aide au support sont prévues dans le namespace `support`.
+Pour les lister : `bin/rake -D support:`.
+
+## Compatibilité navigateurs
+
+L'application gère les navigateurs récents, parmis lequels Firefox, Chrome, Safari et Edge (voir `config/initializers/browser.rb`).
+
+La compatibilité est testée par Browserstack.<br>[<img src="app/assets/images/browserstack-logo-600x315.png" width="200">](https://www.browserstack.com/)
+
+## Performance
+
+[![View performance data on Skylight](https://badges.skylight.io/status/zAvWTaqO0mu1.svg)](https://oss.skylight.io/app/applications/zAvWTaqO0mu1)
+
+Nous utilisons Skylight pour suivre les performances de notre application.

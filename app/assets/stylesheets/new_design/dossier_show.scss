@@ -1,0 +1,55 @@
+@import "colors";
+@import "constants";
+
+#dossier-show {
+  margin-bottom: 30px;
+
+  .sub-header {
+    .label {
+      float: right;
+      margin-left: $default-spacer;
+    }
+
+    .title-container {
+      margin-bottom: $default-spacer;
+      padding-left: 32px;
+
+      .icon.folder {
+        float: left;
+        margin-left: -32px;
+        margin-top: 3px;
+      }
+    }
+
+    h1 {
+      color: $black;
+      font-size: 22px;
+      margin-bottom: 0;
+    }
+
+    h2 {
+      color: $dark-grey;
+      font-weight: bold;
+    }
+
+    .header-actions {
+      margin-bottom: $default-spacer;
+      text-align: right;
+    }
+  }
+
+  .messagerie-explanation {
+    margin-bottom: $default-padding * 2;
+  }
+
+  .latest-message-section {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    margin-bottom: $default-padding * 2;
+
+    .button.send {
+      align-self: flex-end;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+!!! 5
+%html{ lang: "fr", class: yield(:root_class) }
+  %head
+    %meta{ "http-equiv": "Content-Type", content: "text/html; charset=UTF-8" }
+    %meta{ "http-equiv": "X-UA-Compatible", content: "IE=edge" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1" }
+    = csrf_meta_tags
+
+    %title
+      = content_for?(:title) ? "#{yield(:title)} · #{APPLICATION_NAME}" : APPLICATION_NAME
+
+    = favicon_link_tag(image_url("favicons/favicon.png"), type: "image/png")
+
+    = stylesheet_link_tag 'new_design/new_application', media: 'all'
+    = stylesheet_link_tag 'new_design/print', media: 'print'
+
+    = Gon::Base.render_data(camel_case: true, init: true, nonce:  request.content_security_policy_nonce)
+
+  %body{ id: content_for(:page_id), class: browser.platform.ios? ? 'ios' : nil }
+    .page-wrapper
+      = render partial: "layouts/new_header"
+      %main
+        = render partial: "layouts/flash_messages"
+        = content_for?(:content) ? yield(:content) : yield
+
+      - if content_for?(:footer)
+        = content_for(:footer)
+
+      = yield :charts_js

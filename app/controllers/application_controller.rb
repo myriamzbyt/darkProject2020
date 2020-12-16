@@ -1,18 +1,24 @@
 class ApplicationController < ActionController::Base
-
-  def index
-    params[:id] =1
-  end
+  before_action :principal
 
   def principal
-    @Member = 'A saisir'
+    @parent = Parent.new
+    @enfant = Enfant.new
+    @famille = list_famille
+    @info_enfant = Enfant.where(parent_id: @parent_id) if !@parent_id.nil?
   end
 
-  def resume
-    @info_famille = nil
+  def list_famille
+    Famille.all
   end
 
-
-  def create_family
+  def detail
+    @famille = Famille.find(params[:id])
+    @parents = Parent.where(famille_id: @famille.id) if @famille.present?
+    @enfants = Enfant.where(parent_id: @parents.ids) if @parents.present?
+    puts 'hello'
+    puts @famille.inspect
+    puts @parents.inspect
+    puts @enfants.inspect
   end
 end

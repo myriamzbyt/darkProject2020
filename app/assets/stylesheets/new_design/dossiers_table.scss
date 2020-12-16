@@ -1,0 +1,87 @@
+@import "colors";
+@import "constants";
+
+.table.dossiers-table {
+  font-size: 14px;
+
+  th {
+    vertical-align: middle;
+    padding: (2 * $default-spacer) $default-spacer;
+  }
+
+  td {
+    padding: 0;
+  }
+
+  thead a {
+    color: #000000;
+  }
+
+  .caret-icon {
+    vertical-align: top;
+    margin-top: 9px;
+    margin-left: 4px;
+  }
+
+  .cell-link {
+    color: $black;
+    // In order to have identical height in the table header and the table rows,
+    // we compensate for the height difference between the biggest element of the header
+    // (the Personnaliser button, 38px) and the biggest cell-link element of the rows (the label, 28px)
+    padding: calc((2 * #{$default-spacer}) + ((38px - 28px) / 2)) $default-spacer;
+    display: block;
+  }
+
+  .deleted-cell {
+    padding: (2 * $default-spacer) $default-spacer;
+  }
+
+  .icon.folder {
+    position: relative;
+
+    .notifications {
+      top: -3px;
+      right: -6px;
+    }
+  }
+
+  .notification-col {
+    width: 45px;
+
+    a {
+      font-size: 16px;
+    }
+  }
+
+  .number-col {
+    width: 110px;
+  }
+
+  .folder-col {
+    text-align: center;
+  }
+
+  .status-col {
+    width: 110px;
+
+    .label {
+      width: 110px;
+      text-align: center;
+      margin: 0 4px;
+    }
+  }
+
+  .updated-at-col {
+    width: 110px;
+  }
+
+  .action-col {
+    text-align: right;
+    padding-left: $default-spacer;
+    padding-right: $default-spacer;
+  }
+
+  .follow-col {
+    width: 200px;
+  }
+}

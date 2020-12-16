@@ -1,56 +1,139 @@
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
-# Use postgresql as the database for Active Record
-gem 'pg'
-# Use Puma as the app server
-gem 'puma', '~> 4.1'
+gem 'aasm'
+gem 'active_link_to' # Automatically set a class on active links
+gem 'active_model_serializers'
+gem 'active_storage_validations'
+# gem 'activestorage-openstack'
+gem 'administrate', '0.13.0'
+gem 'after_party'
+gem 'anchored'
+gem 'bcrypt'
+gem 'bootstrap-daterangepicker-rails'
+gem 'bootstrap-sass', '>= 3.4.1'
+gem 'bootstrap-wysihtml5-rails', '~> 0.3.3.8'
+gem 'browser'
+gem 'chartkick'
+gem 'chunky_png'
+# gem 'clamav-client', require: 'clamav/client'
+gem 'daemons'
+gem 'deep_cloneable' # Enable deep clone of active record models
+gem 'delayed_cron_job' # Cron jobs
+gem 'delayed_job_active_record'
+gem 'delayed_job_web'
+gem 'devise' # Gestion des comptes utilisateurs
+gem 'devise-async'
+gem 'devise-i18n'
+gem 'discard'
+gem 'dotenv-rails', require: 'dotenv/rails-now' # dotenv should always be loaded before rails
+gem 'excon'
+gem 'ffi-geos', require: false
+gem 'flipper'
+gem 'flipper-active_record'
+gem 'flipper-ui'
+gem 'font-awesome-rails'
+gem 'fugit'
+gem 'geo_coord', require: "geo/coord"
+gem 'geocoder'
+gem 'gon'
+gem 'graphql'
+gem 'graphql-batch'
+gem 'graphql-rails_logger'
+gem 'graphql_playground-rails'
+gem 'groupdate'
 gem 'haml-rails'
-# Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 4.0'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.7'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use Active Model has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'hashie'
+gem 'http_accept_language'
+gem 'iban-tools'
+gem 'jquery-rails' # Use jquery as the JavaScript library
+gem 'jwt'
+gem 'kaminari', '1.2.1' # Pagination
+gem 'keycloak'
+gem 'lograge'
+gem 'logstash-event'
+# gem 'mailjet'
+gem 'momentjs-rails'
+gem 'omniauth-github'
+gem 'omniauth-rails_csrf_protection', '~> 0.1'
+gem 'openid_connect'
+gem 'pg'
+gem 'phonelib'
+gem 'prawn-rails' # PDF Generation
+gem 'prawn-svg'
+gem 'premailer-rails'
+gem 'puma' # Use Puma as the app server
+gem 'pundit'
+gem 'rack-attack'
+gem 'rack-mini-profiler'
+gem 'rails'
+gem 'rails-i18n' # Locales par défaut
+gem 'rake-progressbar', require: false
+gem 'react-rails'
+gem 'rgeo-geojson'
+gem 'roo', '~> 2.7.1'
+gem 'rswag-api'
+gem 'rswag-ui'
+gem 'ruby-ntlm'
+gem 'sanitize-url'
+gem 'sassc', '= 2.0.0'
+gem 'sassc-rails' # Use SCSS for stylesheets
+gem 'secure_yaml'
+gem 'sentry-raven'
+# gem 'skylight'
+gem 'smart_listing'
+gem 'spreadsheet_architect'
+gem 'sprockets', '< 4'
+gem 'typhoeus'
+gem 'warden'
+gem 'webpacker'
+gem 'zipline'
+gem 'zxcvbn-ruby', require: 'zxcvbn'
 
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
-
-# Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.2', require: false
-
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+group :test do
+  gem 'capybara' # Integration testing
+  gem 'capybara-email' # Access emails during integration tests
+  gem 'capybara-screenshot' # Save a dump of the page when an integration test fails
+  gem 'capybara-selenium'
+  gem 'database_cleaner'
+  gem 'factory_bot'
+  gem 'guard'
+  gem 'guard-livereload', require: false
+  gem 'guard-rspec', require: false
+  gem 'launchy'
+  gem 'rails-controller-testing'
+  gem 'shoulda-matchers', require: false
+  gem 'simplecov', require: false, group: :test
+  gem 'timecop'
+  gem 'vcr'
+  gem 'webdrivers', '~> 4.0'
+  gem 'webmock'
 end
 
 group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '~> 3.2'
+  gem 'annotate'
+  gem 'brakeman', require: false
   gem 'haml-lint'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'letter_opener_web'
+  gem 'rails-erd', require: false # generates `doc/database_models.pdf`
+  gem 'rubocop', require: false
+  gem 'rubocop-rails_config'
+  gem 'rubocop-rspec-focused', require: false
+  gem 'scss_lint', require: false
+  gem 'web-console'
+  gem 'xray-rails'
 end
 
-group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+group :development, :test do
+  gem 'axe-matchers' # accessibility rspec matchers
+  gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'graphql-schema_comparator'
+  gem 'mina', git: 'https://github.com/mina-deploy/mina.git', require: false # Deploy
+  gem 'pry-byebug'
+  gem 'rspec-rails'
+  gem 'rspec_junit_formatter', require: false
+  gem 'rswag-specs'
+  gem 'ruby-debug-ide', require: false
+  gem 'simple_xlsx_reader'
+  gem 'spring' # Spring speeds up development by keeping your application running in the background
+  gem 'spring-commands-rspec'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

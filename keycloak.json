@@ -1,0 +1,10 @@
+{
+  "realm": "heliss_ng",
+  "auth-server-url": "https://mindefconnect.defense-plateforme.com/auth",
+  "ssl-required": "none",
+  "resource": "capdev-dossier-numerique-internet",
+  "credentials": {
+    "secret": "5bdca56b-adaa-4624-a571-3bc6a8f183b9"
+  },
+  "confidential-port": 0
+}

@@ -1,0 +1,20 @@
+{
+  "types_demarche": [
+    {
+      "num": 1,
+      "type_demarche": "Démarche non typée"
+    },
+    {
+      "num": 2,
+      "type_demarche": "Gestion de la rémunération"
+    },
+    {
+      "num": 3,
+      "type_demarche": "Gestion des documents individuels"
+    },
+    {
+      "num": 4,
+      "type_demarche": "Administration du personnel"
+    }
+  ]
+}

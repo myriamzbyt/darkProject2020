@@ -1,4 +1,4 @@
 class Parent < ApplicationRecord
-  belongs_to :familles
-  has_many :enfants
+  belongs_to :famille, optional: true
+  has_many :enfants, inverse_of: :parent
 end
